@@ -11,7 +11,7 @@ def stats():
         # Split player name into name and code
         split = player.split('#')
         # Dictionary of stats, initially set to 0
-        stats = {'score' : 0, 'kills' : 0, 'deaths' : 0, 'assists' : 0,
+        statistics = {'score' : 0, 'kills' : 0, 'deaths' : 0, 'assists' : 0,
             'bodyshots' : 0, 'headshots' : 0, 'legshots' : 0,
             'damage_dealt' : 0, 'damage_taken' : 0}
 
@@ -22,33 +22,33 @@ def stats():
 
         # Look through the data from each of the 5 games, and extract data
         # matching the chosen player name and code
-        for x in range(5):
+        for x in range(4):
             player_list = data['data'][x]['players']['all_players']
 
             # Increment stat totals
             for x in player_list:
-                # Check if correct player
+                # Check if correct player and assign statistics
                 if ((x['name'] == split[0]) and (x['tag'] == split[1])):
-                    stats['score'] += x['stats']['score']
-                    stats['kills'] += x['stats']['kills']
-                    stats['deaths'] += x['stats']['deaths']
-                    stats['assists'] += x['stats']['assists']
-                    stats['bodyshots'] += x['stats']['bodyshots']
-                    stats['headshots'] += x['stats']['headshots']
-                    stats['legshots'] += x['stats']['legshots']
-                    stats['damage_dealt'] += x['damage_made']
-                    stats['damage_taken'] += x['damage_received']
+                    statistics['score'] += x['stats']['score']
+                    statistics['kills'] += x['stats']['kills']
+                    statistics['deaths'] += x['stats']['deaths']
+                    statistics['assists'] += x['stats']['assists']
+                    statistics['bodyshots'] += x['stats']['bodyshots']
+                    statistics['headshots'] += x['stats']['headshots']
+                    statistics['legshots'] += x['stats']['legshots']
+                    statistics['damage_dealt'] += x['damage_made']
+                    statistics['damage_taken'] += x['damage_received']
 
 
         # Stat output
         print('\n' + split[0] + '\'s Stats')
-        stats = get_average(stats, 5)
-        print('Score:      ' + str(stats['score']))
-        print('KDA:        ' + str(stats['kills']) + '/' + str(stats['deaths']) + '/' + str(stats['assists']))
-        print('Dmg Ratio:  ' + str(round(stats['damage_dealt'] / stats['damage_taken'], 2)))
-        total_shots = stats['bodyshots'] + stats['headshots'] + stats['legshots']
-        print('Headshot %: ' + str(round(stats['headshots'] / total_shots, 2) * 100))
-        print('Legshot %:  ' + str(round(stats['legshots'] / total_shots, 2) * 100) + '\n')
+        statistics = get_average(statistics, 5)
+        print('Score:      ' + str(statistics['score']))
+        print('KDA:        ' + str(statistics['kills']) + '/' + str(statistics['deaths']) + '/' + str(statistics['assists']))
+        print('Dmg Ratio:  ' + str(round(statistics['damage_dealt'] / statistics['damage_taken'], 2)))
+        total_shots = statistics['bodyshots'] + statistics['headshots'] + statistics['legshots']
+        print('Headshot %: ' + str(round(statistics['headshots'] / total_shots, 2) * 100))
+        print('Legshot %:  ' + str(round(statistics['legshots'] / total_shots, 2) * 100) + '\n')
 
 # Takes a dictionary of stats and converts it to per game averages
 def get_average(stats, divisor):
